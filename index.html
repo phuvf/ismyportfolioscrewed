@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<title>Is my portfolio screwed?</title>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/tax.js"></script>
+	<meta property="og:url"           content="http://ismyportfolioscrewed.co.uk" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Is my portfolio screwed?" />
+    <meta property="og:description"   content="UK landlords: Find out if new budget rules are going to destroy your business" />
+    <meta property="og:image"         content="http://ismyportfolioscrewed.co.uk/image.jpg" />
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/tax.css">
+</head>
+<body>
+
+
+<!-- Modal legal -->
+<div class="modal fade" id="legalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Legal stuff</h4>
+      </div>
+      <div class="modal-body">
+        <p>Look, we just knocked this up quickly following our interpretation of the budget announcement. If you rely on this for financial or legal advice, you probably shouldn't
+		be trusted to provide safe housing for generation rent anyway.</p>
+		<p>Do yourself a favour and get some proper advice from a qualified accountant.</p>
+		<p>If you are a qualified accountant and would like a shameless plug here, please <a href='mailto: contact@ismyportfolioscrewed.co.uk'>get in touch</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal feedback -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Feedback</h4>
+      </div>
+      <div class="modal-body">
+		<p>Comments? questions? Found a bug? <a href='mailto: contact@ismyportfolioscrewed.co.uk'>Get in touch</a>.</p>
+		<p>Want to sponsor this, or use it to promote your accountancy business?</p>
+		<p>Great, but you'll still need to <a href='mailto: contact@ismyportfolioscrewed.co.uk'>get in touch</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Settings -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Settings</h4>
+      </div>
+      <div class="modal-body">
+        <p>We had to make a whole bunch of assumptions to make this work. If you don't like what we've picked, change it here.</p>
+		<h3>2015 (old regime) settings</h3>
+		<p>Personal allowance<br/>&pound; <input type='number' min='0' name='oldPA'></p>
+		<p>Basic rate <br/><input type='number' min='0' max='100' name='oldBasicRate'> %</p>
+		<p>Higher rate starts at<br/>&pound; <input type='number' min='0' name='oldHighStart'></p>
+		<p>Higher rate<br/><input type='number' min='0' max='100' name='oldHighRate'> %</p>
+		<p>Additional rate starts at<br/>&pound; <input type='number' min='0' name='oldAddStart'></p>
+		<p>Additional rate<br/><input type='number' min='0' max='100' name='oldAddRate'> %</p>
+		<h3>2020 (new regime) settings</h3>
+		<p>Personal allowance<br/>&pound; <input type='number' min='0' name='newPA'></p>
+		<p>Basic rate <br/><input type='number' min='0' max='100' name='newBasicRate'> %</p>
+		<p>Higher rate starts at<br/>&pound; <input type='number' min='0' name='newHighStart'></p>
+		<p>Higher rate<br/><input type='number' min='0' max='100' name='newHighRate'> %</p>
+		<p>Additional rate starts at<br/>&pound; <input type='number' min='0' name='newAddStart'></p>
+		<p>Additional rate<br/><input type='number' min='0' max='100' name='newAddRate'> %</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal" id='saveSettings'>Save and close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- rentModal -->
+<div class="modal fade" id="rentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Gross rent</h4>
+      </div>
+      <div class="modal-body">
+        <p>This is the total rent you collect every month (or year).</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- interestModal -->
+<div class="modal fade" id="interestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Mortgage interest</h4>
+      </div>
+      <div class="modal-body">
+        <p>The amount you pay each month (or year) in mortgage interest on your rental portfolio.</p>
+		<p>Don't include any payments that go towards paying off the loan amount.</p>
+        <div class='well'>
+			<p>If this is too complex, estimate your annual interest costs by multiplying the loan amount by the interest rate.</p>
+			<p>For example, a &pound; 100,000 loan at 5% interest rate:</p>
+			<p>&pound; 100,000 x 5% = &pound; 5,000 interest per year</p>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- costsModal -->
+<div class="modal fade" id="costsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Property operating costs</h4>
+      </div>
+      <div class="modal-body">
+        <p>The amount you pay each month (or year) to keep your properties running.</p>
+		<p>This will include insurance, repairs, a gas safety certificate <em>(you do have one, don't you?)</em>, accounting fees, travel expenses etc. etc.</p>
+        <div class='well'>
+			<p>Not sure how much you spend?</p>
+			<p>Shame on you! Get your books in order before HMRC do it for you.</p>
+			<p class='text-muted'>In the meantime, a rough estimate would be around 10% of your gross rental income.</p>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- incomeModal -->
+<div class="modal fade" id="incomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Gross income</h4>
+      </div>
+      <div class="modal-body">
+        <p>The amount you earn in your job(s) outside of your property business, including any bonuses and commissions.</p>
+		<p>This should be the gross figure, before tax and NI are taken off.</p>
+		<p class='text-muted'>None of these figures are collected - they only appear on your device. You're probably earning more than us anyway, so we'd only be jealous.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+	<div id='container'>
+	
+		<div id='intro' class='panel'>
+			<img src='logo.png' class='logo_lrg'/>
+			<hr/>
+			<p>In the summer emergency budget (July 2015), George Osborne announced that tax relief on mortgage interest payments
+			will be limited to 20% -  as opposed to the current situation, where up to 45% tax relief can be claimed, depending on the rate
+			of tax you currently pay.</p>
+			<p>These changes are going to be phased in over a period of four years, starting from April 2017.</p>
+			<p>To help you find out just how screwed you're going to be, here's a helpful calculator.</p>
+			
+			<button type="button" class="btn btn-primary btn-lg btn-block" id='start' style='margin-top: 1em;'>Let's go!</button>
+			<p>&nbsp;</p>
+			<p class='text-muted'>This is only really for UK landlords who own/run their properties themselves. Properties held in companies are treated differently, so 
+			if that applies to you, go away. You're no longer welcome.</p>
+		</div>
+		
+		<div id='prenote' class='panel'>
+			<img src='logo.png' class='logo_lrg'/>
+			<hr/>
+			<p class='header' style='margin-bottom: 1em;'>Before we start:</p>
+			
+			<p>This is only a rough calculation. Don't worry about being too precise - numbers to the nearest thousand are fine.</p>
+			<p class='text-muted' style='margin-bottom: 2em;'>Also, don't make plans based on this tool as it may be completely wrong.</p>
+			
+			<button type="button" class="btn btn-primary btn-lg btn-block" id='start2'>Got it!</button>
+		</div>
+		
+		
+		<div id='input' class='panel'>
+			<img src='logo.png' class='logo_lrg'/>
+			<hr/>
+			<p>Enter figures from your portfolio to find out how screwed (or otherwise) you're going to be.</p>
+			
+			<p class="text-muted">This data isn't sent anywhere - it's only ever on your device.</p>
+			<p>Gross rent <span class="badge" data-toggle="modal" data-target="#rentModal">?</span></p>
+			<div class="input-group"><span class="input-group-addon" id="basic-addon1">&pound;</span>
+			  <input type="number" class="form-control" aria-label="..." name='gross_rent' tabindex='1' min='0'>
+			  <div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value='every month' name='rent_period'>every month&nbsp;<span class="caret"></span></button>
+				<ul class="dropdown-menu dropdown-menu-right">
+				  <li><a href="#">every month</a></li>
+				  <li><a href="#">annually</a></li>
+				 
+				</ul>
+			  </div><!-- /btn-group -->
+			</div><!-- /input-group -->
+			
+			<p>&nbsp;</p>
+			<p>Mortgage interest payments <span class="badge" data-toggle="modal" data-target="#interestModal">?</span></p>
+			<div class="input-group"><span class="input-group-addon" id="basic-addon1">&pound;</span>
+			  <input type="number" class="form-control" aria-label="..." name='mortgage_interest' tabindex='2' min='0'>
+			  <div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value='every month' name='interest_period'>every month&nbsp;<span class="caret"></span></button>
+				<ul class="dropdown-menu dropdown-menu-right">
+				  <li><a href="#">every month</a></li>
+				  <li><a href="#">annually</a></li>
+				 
+				</ul>
+			  </div><!-- /btn-group -->
+			</div><!-- /input-group -->
+			
+			<p>&nbsp;</p>
+			<p>Other property operating costs <span class="badge" data-toggle="modal" data-target="#costsModal">?</span></p>
+			<div class="input-group"><span class="input-group-addon" id="basic-addon1">&pound;</span>
+			  <input type="number" class="form-control" aria-label="..." name='other_costs' tabindex='3' min='0'>
+			  <div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value='every month' name='other_costs_period'>every month&nbsp;<span class="caret"></span></button>
+				<ul class="dropdown-menu dropdown-menu-right">
+				  <li><a href="#">every month</a></li>
+				  <li><a href="#">annually</a></li>
+				 
+				</ul>
+			  </div><!-- /btn-group -->
+			</div><!-- /input-group -->
+			
+			<p>&nbsp;</p>
+			<p>Gross income (other than property) <span class="badge" data-toggle="modal" data-target="#incomeModal">?</span></p>
+			<div class="input-group"><span class="input-group-addon" id="basic-addon1">&pound;</span>
+			  <input type="number" class="form-control" aria-label="..." name='other_income' tabindex='4' min='0'>
+			  <div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value='every month' name='other_income_period'>every month&nbsp;<span class="caret"></span></button>
+				<ul class="dropdown-menu dropdown-menu-right">
+				  <li><a href="#">every month</a></li>
+				  <li><a href="#">annually</a></li>
+				 
+				</ul>
+			  </div><!-- /btn-group -->
+			</div><!-- /input-group -->
+			<p>&nbsp;</p>
+			<div class="row">
+				<div class="col-md-6"><button type="button" class="btn btn-lg  btn-block btn-link" id='back_to_intro'>Back</button></div>
+				<div class="col-md-6"><button type="button" class="btn btn-lg btn-block btn-primary" id='bad_news' tabindex='5'>Give me the bad news</button></div>
+			</div>
+			
+			
+		</div>
+		
+		<div id='bang' class='panel'>
+			<p class='header'>Your tax could be changing by:</p>
+			<div class='splat_holder'>
+				<div class='bang'><span id='percentIncrease'>0</span>%</div>
+			</div>
+			<div id='infinite_note'><p>* that's an infinite tax increase, probably because you weren't paying any to start with - carry on to find out more...</p></div>
+			<div id='negative_income_note'>
+				<p class='header' style='margin-bottom: 1em;'>But it gets worse...</p>
+				<p style='margin-bottom: 1em;'>It also looks like you're going to be paying more in tax than you earn!</p>
+			</div>
+			<div class="row">
+				<div class="col-md-6"><button type="button" class="btn btn-lg  btn-block btn-link" id='back_to_input'>Back</button></div>
+				<div class="col-md-6"><button type="button" class="btn btn-lg btn-block btn-primary" id='on_to_results'>I need details</button></div>
+			</div>
+		</div>
+		
+		<div id='results' class='panel'>
+			<img src='logo.png' class='logo_lrg'/>
+			<hr/>
+			<table class='table'>
+			<tr><th colspan='2'>Annual summary</th></tr>
+			<tr><td>Gross rent</td><td>&pound; <span id='grossRent'>-</span></td></tr>
+			<tr><td>Mortgage interest</td><td>&pound; <span id='mortgageInterest'>-</span></td></tr>
+			<tr><td>Operating costs</td><td>&pound; <span id='otherCosts'>-</span></td></tr>
+			<tr><td>Other income</td><td>&pound; <span id='otherIncome'>-</span></td></tr>
+			</table>
+			<table class='table'>
+			<tr><th>Tax calculations</th><th>2014</th><th>2020</th></tr>
+			<tr><td>Operating profit</td><td>&pound; <span id='oldOperatingProfit'>0</span></td><td>&pound; <span id='newOperatingProfit'>0</span></td></tr>
+			<tr><td>Taxable profit</td><td>&pound; <span id='oldTaxableProfit'>0</span></td><td>&pound; <span id='newTaxableProfit'>0</span></td></tr>
+			<tr><td>Minus personal allowance</td><td>&pound; -<span class='oldpa'></span></td><td>&pound; -<span class='newpa'></span></td></tr>
+			<tr><td>Taxable income after personal allowance</td><td>&pound; <span id='oldLessPA'>0</span></span></td><td>&pound; <span id='newLessPA'>0</span></td></tr>
+			<tr><td>Basic rate tax @ <span class='basicRate'>0</span>%</td><td>&pound; <span id='oldBasic'>0</span></td><td>&pound; <span id='newBasic'>0</span></td></tr>
+			<tr><td>Higher rate tax @ <span class='highRate'>0</span>%</td><td>&pound; <span id='oldHigher'>0</span></td><td>&pound; <span id='newHigher'>0</span></td></tr>
+			<tr><td>Additional rate tax @ <span class='addRate'>0</span>%</td><td>&pound; <span id='oldAdditional'>0</span></td><td>&pound; <span id='newAdditonal'>0</span></td></tr>
+			<tr><td>Mortgage interest relief @ <span class='basicRate'>0</span>%</td><td>&pound; 0</td><td>&pound; -<span id='newMortgageRelief'>0</span></td></tr>
+			<tr><td class='total_tax'>Total tax</td><td class='total_tax'>&pound; <span id='oldTotalTax'>0</span></td><td class='total_tax'>&pound; <span id='newTotalTax'>0</span></td></tr>
+			<tr><td><small>Effective tax rate</small></td><td><small><span id='oldETR'>0</span>%</small></td><td><small><span id='newETR'>0</span>%</small></td></tr>
+			<tr><td>Net income</td><td>&pound; <span id='oldNetIncome'>0</span></td><td>&pound; <span id='newNetIncome'>0</span></td></tr>
+			</table>
+			
+			<div class="row">
+				<div class="col-md-6"><button type="button" class="btn btn-lg  btn-block btn-link" id='back_to_input_2'>Back</button></div>
+				<div class="col-md-6"><button type="button" class="btn btn-lg btn-block btn-info" id='to_wrap_up'>Next</button></div>
+			</div>
+		</div>
+		
+		<div id='wrap_up' class='panel'>
+			<img src='logo.png' class='logo_lrg'/>
+			<hr/>
+			<p class='header'>Now you know how bad it is, share the pain around:</p>
+			<div class="row">
+				<div class="col-md-6"><a class='button btn-lg btn-block btn-primary' style='padding-top: 2em; padding-bottom: 2em; margin-bottom: 1em;' href='https://www.facebook.com/sharer/sharer.php?u=http://ismyportfolioscrewed.co.uk'>Share on Facebook</a></div>
+				<div class="col-md-6"><a  class='button btn-lg btn-block btn-info'  style='padding-top: 2em; padding-bottom: 2em; margin-bottom: 1em;'href="https://twitter.com/home?status=http://ismyportfolioscrewed.co.uk">Share on Twitter</a></div>
+			</div>
+			<p class='text-muted'>None of your figures will be shared online.</p>
+			<p>&nbsp;</p>
+			<p>Like what we've done? Great! Now donate &pound; 5 while you can still afford it:</p>
+			<form name="_xclick" action="https://www.paypal.com/uk/cgi-bin/webscr" method="post" style='margin: 1em 1em 1em 0;'>
+				<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="business" value="personal@zinc.uk.com">
+				<input type="hidden" name="item_name" value="Donation for ismyportfolioscrewed.co.uk">
+				<input type="hidden" name="currency_code" value="GBP">
+				<input type="hidden" name="amount" value="5.00">
+				<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+			</form>
+			<div class="row">
+				<div class="col-md-6"><button type="button" class="btn btn-lg  btn-block btn-link" id='back_to_table'>Back</button></div>
+				<div class="col-md-6"><button type="button" class="btn btn-lg btn-block btn-info" id='start_over'>Start over</button></div>
+			</div>
+		</div>
+		
+		
+	</div> <!-- end container -->
+	
+<div id='footer'>
+<!-- Button trigger modal -->
+<a href='#' data-toggle="modal" data-target="#settingsModal">Settings</a> | <a href='#' data-toggle="modal" data-target="#legalModal">Legal</a> | <a href='#' data-toggle="modal" data-target="#feedbackModal">Feedback</a>
+</div>
+
+</body>
+</html>

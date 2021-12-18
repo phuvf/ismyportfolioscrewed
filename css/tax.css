@@ -1,0 +1,33 @@
+html {position: relative; min-height: 100%;}
+body {background: #8C001A; color: white; font-family: "Arial Black", Gadget, sans-serif; font-size: 2em; margin: 0 0 60px;}
+#container {margin: 0 auto; max-width: 800px; position: relative;}
+.panel {position: absolute: top: 0; background: none; padding: 1em;}
+.logo_lrg {max-width: 100%; padding: 1em;}
+.logo_sml {max-width: 50%; padding: 1em; margin-bottom: 1em;}
+.splat_holder{position: relative; margin-bottom: 2em;}
+.bang {font-family: 'Bangers', cursive; font-size: 7em; color: yellow; margin: 0 auto; background: url('../splat.png'); width: 100%; text-align: center;background-size: contain; background-repeat: no-repeat; background-position: center; }
+.header {font-family: 'Bangers', cursive; font-size: 2em; color: yellow; margin-bottom: 2em;}
+.header_2 {font-family: 'Bangers', cursive; font-size: 1em; color: yellow; margin-bottom: 2em;}
+#infinite_note {text-align: center; font-size: 20px; color: salmon; margin-top: 5em;}
+td {font-size: 0.8em;}
+hr {background: salmon; height: 3px;  border: 0;}
+th {font-family: 'Bangers', cursive; font-size: 30px; color: yellow;}
+.total_tax {font-family: 'Bangers', cursive; font-size: 30px; color: yellow;}
+.text-muted {color:salmon; font-size: .7em;}
+.modal-body p.text-muted {color: grey; font-size: .7em;}
+.btn-link {text-align: left;}
+.modal {color: black; font-size: 15px;}
+
+#footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+	padding: 1em;
+	text-align: center;
+	color: grey;
+	background: #46000D;
+	border-top: 1px solid grey;
+	font-size: .8em;
+}
+#footer a {color: salmon;}
